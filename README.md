@@ -1,6 +1,6 @@
 # Is it a cat or a dog
 
-FastApi api that predicts if it's a cat or a dog using fastAI image classification.
+React Vite fronend that serves FastApi api that predicts if it's a cat or a dog using fastAI image classification.
 
 ![demo1](https://user-images.githubusercontent.com/52054459/224771687-2ed97135-8669-4775-a81b-e1097fd26500.gif)
 
