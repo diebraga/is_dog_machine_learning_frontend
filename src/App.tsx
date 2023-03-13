@@ -16,6 +16,8 @@ const initialState = {
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [image, setImage] = useState<ImageFile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [prediction, setPrediction] = useState(
@@ -38,6 +40,7 @@ function App() {
     const formData = new FormData();
     if (image && imageUrl.length) {
       formData.append("file", image);
+      setIsLoading(true);
       try {
         const response = await axios.post(
           "https://cat-vs-dog-afza.onrender.com/predict",
@@ -53,6 +56,8 @@ function App() {
         console.log(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -82,8 +87,15 @@ function App() {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", gap: "9px" }}>
-          <button type="submit">PREDICT</button>{" "}
-          <button type="button" onClick={() => {setImageUrl(""), setPrediction(initialState)}}>
+          <button type="submit" disabled={isLoading}>
+            {!isLoading ? "PREDICT" : "Loading..."}
+          </button>{" "}
+          <button
+            type="button"
+            onClick={() => {
+              setImageUrl(""), setPrediction(initialState);
+            }}
+          >
             REMOVE
           </button>
         </div>
